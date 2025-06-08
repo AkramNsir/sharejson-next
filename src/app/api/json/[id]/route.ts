@@ -2,13 +2,11 @@ import prisma from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
 
 interface Params {
-  params: {
-    id: string;
-  };
+  params: Promise<{ id: string }>
 }
 
 export async function GET(request: NextRequest, { params }: Params) {
-  const { id } = params;
+  const { id } = await params;
 
   try {
     const json = await prisma.jsonData.findUnique({
@@ -17,12 +15,15 @@ export async function GET(request: NextRequest, { params }: Params) {
         id: true,
         name: true,
         content: true,
-        createdAt: true
-      }
+        createdAt: true,
+      },
     });
     return NextResponse.json(json);
-  } catch(error) {
-    console.error('Error fetching JSON data:', error);
-    return NextResponse.json({ error: 'Error fetching JSON data'}, { status: 500 })
+  } catch (error) {
+    console.error("Error fetching JSON data:", error);
+    return NextResponse.json(
+      { error: "Error fetching JSON data" },
+      { status: 500 }
+    );
   }
 }
