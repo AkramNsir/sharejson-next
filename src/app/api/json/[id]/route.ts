@@ -1,13 +1,14 @@
 import prisma from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
 
-interface Params {
-  params: {
-    id: string;
-  };
-}
+// interface Params {
+//   params: {
+//     id: string;
+//   };
+// }
 
-export async function GET(request: NextRequest, { params }: Params) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export async function GET(request: NextRequest, { params }: any) {
   const { id } = params;
 
   try {
