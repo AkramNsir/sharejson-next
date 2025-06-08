@@ -1,11 +1,13 @@
 import prisma from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(request: NextRequest, { params }: {
+interface Params {
   params: {
-    id: string
-  }
-}) {
+    id: string;
+  };
+}
+
+export async function GET(request: NextRequest, { params }: Params) {
   const { id } = params;
 
   try {
