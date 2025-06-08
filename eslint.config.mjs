@@ -10,7 +10,21 @@ const compat = new FlatCompat({
 });
 
 const eslintConfig = [
+  // Existing config
   ...compat.extends("next/core-web-vitals", "next/typescript"),
+  // Add ignore for src/generated/
+  {
+    ignores: ["src/generated/**"],
+  },
+  // Optionally, disable rules for src/generated/ explicitly
+  {
+    files: ["src/generated/**"],
+    rules: {
+      "@typescript-eslint/no-unused-expressions": "off",
+      "@typescript-eslint/no-unused-vars": "off",
+      "@typescript-eslint/no-require-imports": "off",
+    },
+  },
 ];
 
 export default eslintConfig;
